@@ -5,25 +5,24 @@ import * as dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-// define fixture types
 type CalculatorFixtures = {
   calculatorScreen: CalculatorScreen;
 };
 
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export const test = base.extend<CalculatorFixtures>({
 
   calculatorScreen: async ({ screen }, use) => {
-    // setup — runs before each test
-    androidAppLaunch(process.env.APP_BUNDLE_ID!);
+    androidAppLaunch();
+    await sleep(2000);
 
     const calculator = new CalculatorScreen(screen);
     await calculator.isLoaded();
     await calculator.tapClear();
 
-    // provide fixture to test
     await use(calculator);
 
-    // teardown — runs after each test
     await calculator.tapClear();
   },
 
