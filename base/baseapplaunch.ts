@@ -1,22 +1,28 @@
-import { execFileSync } from 'child_process';
+import { Device } from 'mobilewright';
 import * as dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-export const androidAppLaunch = (): void => {
-  const deviceId = process.env.DEVICE_ID;
-  const appActivity = process.env.APP_ACTIVITY;
+export const androidAppLaunch = async (
+  device: Device
+): Promise<void> => {
 
-  if (!deviceId) throw new Error('DEVICE_ID is not set in .env.local');
-  if (!appActivity) throw new Error('APP_ACTIVITY is not set in .env.local');
+  const bundleId = process.env.APP_BUNDLE_ID!;
 
-  if (!appActivity.includes('/')) {
-    throw new Error(`Invalid format: expected "package/activity", got "${appActivity}"`);
+  if (!bundleId) {
+    throw new Error(
+      'BUNDLE_ID is not set in .env.local'
+    );
   }
 
-  execFileSync(
-    'adb',
-    ['-s', deviceId, 'shell', 'am', 'start', '-n', appActivity],
-    { stdio: 'ignore' }
+    await device
+    .terminateApp(bundleId)
+    .catch(() => {});
+
+  await device.launchApp(
+    bundleId,
+    {
+      noWaitAfter: true
+    }
   );
 };
