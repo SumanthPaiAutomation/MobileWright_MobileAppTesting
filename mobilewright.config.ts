@@ -1,9 +1,10 @@
 import { defineConfig } from 'mobilewright';
+import * as dotenv from 'dotenv';
 
 export default defineConfig({
-  platform: 'ios',
-  bundleId: 'com.example.myapp',
-  deviceName: /iPhone 16/,
+  platform: 'android', //choose between ios or android.
+  bundleId: process.env.APP_BUNDLE_ID,
+  deviceName: process.env.DEVICE_ID,
   installApps: './builds/myapp.ipa',
-  timeout: 10_000,
+  timeout: 60000,
 });
