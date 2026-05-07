@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@mobilewright/test": "^0.0.32",
+    "mobilewright": "^0.0.32"
+  },
+  "devDependencies": {
+    "@mobilewright/test": "0.0.32",
+    "mobilewright": "0.0.32",
+    "@types/node": "latest"
+  },
+  "scripts": {
+    "start_test":"npx mobilewright test",
+    "run_with_reporter":"npm run start_test && --reporter html",
+    "show_report":"npx mobilewright show-report"
+
+  }
+}
