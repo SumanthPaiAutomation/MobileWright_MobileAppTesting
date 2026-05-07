@@ -1,5 +1,24 @@
-import { test } from '@mobilewright/test';
+import { test, expect }
+from '@mobilewright/test';
 
-test('debug connection', async ({ device }) => {
-  console.log('device connected successfully');
-});
+test(
+  'debug launch',
+  async ({ device, screen }) => {
+
+    await device.launchApp(
+      'com.saucelabs.mydemoapp.android',
+      {
+        noWaitAfter: true
+      }
+    );
+
+    await new Promise(resolve =>
+      setTimeout(resolve, 5000)
+    );
+
+    await expect(
+      screen.getByText('Products')
+    ).toBeVisible();
+
+  }
+);
