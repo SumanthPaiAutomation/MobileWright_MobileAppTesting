@@ -1,17 +1,21 @@
 {
+  "name": "mobilewright-practice",
+  "version": "1.0.0",
+  "private": true,
   "dependencies": {
-    "@mobilewright/test": "^0.0.32",
-    "dotenv": "^17.4.2",
-    "mobilewright": "^0.0.32"
+    "dotenv": "^17.4.2"
   },
   "devDependencies": {
-    "@mobilewright/test": "0.0.32",
+    "@mobilewright/test": "^0.0.32",
     "@types/node": "latest",
-    "mobilewright": "0.0.32"
+    "mobilewright": "^0.0.32",
+    "typescript": "latest"
   },
   "scripts": {
-    "start_test": "npx mobilewright test",
-    "run_with_reporter": "npm run start_test && --reporter html",
-    "show_report": "npx mobilewright show-report"
+    "test": "npx mobilewright test",
+    "test:reporter": "npx mobilewright test --reporter html",
+    "test:grep": "npx mobilewright test --grep",
+    "test:file": "npx mobilewright test",
+    "show:report": "npx mobilewright show-report"
   }
 }
